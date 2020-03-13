@@ -8,22 +8,33 @@ class LoginScreen extends React.Component {
         headerShown: false
     }
 
-    state = {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userName: '',
+            password: ''
+        };
+        this._onPressButton = this._onPressButton.bind(this);
     };
+
+    _onPressButton(){
+        alert('userName = '+this.state.userName+' password = '+this.state.password);
+    }
 
     render() {
         return (
-            <View style={styles.parentViewStyle}>
+            <View style={styles.parentViewStyle} behavior="padding">
                 <View style={styles.avatarViewStyle}>
-                    <Avatar rounded size="large" activeOpacity={0.7} title="A" overlayContainerStyle={{ backgroundColor: 'white' }} />
+                    <Avatar rounded size="large" activeOpacity={0.7} title="A" titleStyle={{color:'#68a0cf'}} overlayContainerStyle={{ backgroundColor: 'white' }} />
                 </View>
-                <View style={styles.textViewStyle}>
-                    <KeyboardAvoidingView behavior="padding" enabled>
+                <KeyboardAvoidingView style={styles.textViewStyle} behavior="padding">
                         <Text style={styles.loginStyle}>Login </Text>
                         <View style={styles.textInputViewStyle}>
                             <TextInput style={styles.textInputStyle} placeholder={"Email"}
+                            onChangeText={(text) => this.setState({userName: text})}
                             />
                             <TextInput style={styles.textInputStyle} placeholder="Password" secureTextEntry={true}
+                            onChangeText={(text) => this.setState({password: text})}
                             />
                             {/* <FloatLabelTextInput placeholder={"Email"} />
                             <FloatLabelTextInput placeholder="Password" secureTextEntry={true} /> */}
@@ -33,8 +44,7 @@ class LoginScreen extends React.Component {
                             onPress={this._onPressButton}>
                             <Text style={styles.submitText}>GO!</Text>
                         </TouchableOpacity>
-                    </KeyboardAvoidingView>
-                </View>
+                </KeyboardAvoidingView>
             </View>
         );
     }
